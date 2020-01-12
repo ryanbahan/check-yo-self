@@ -291,3 +291,8 @@ form button:enabled,
 .hidden {
     display: none;
 }
+
+.display-task-items {
+    max-height: 20%;
+    overflow: scroll;
+}
