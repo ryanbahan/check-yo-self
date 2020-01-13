@@ -266,7 +266,7 @@ function checkCompletedTasks(event) {
 // Search cards by string.
 
 function searchCards() {
-    var query = new RegExp(`^${searchField.value}`, 'gi');
+    var query = new RegExp(`${searchField.value}`, 'gi');
     var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
     var matches = displayCards.filter(card => card.children[0].innerText.match(query));
     var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
