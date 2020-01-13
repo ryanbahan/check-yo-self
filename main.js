@@ -24,6 +24,8 @@ filterByUrgencyBtn.addEventListener('click', filterUrgentCards);
 gettoDoCards();
 loadToDoCards();
 
+// Add and remove task items from the left-side form, pre-submission.
+
 function addTaskItem() {
     if (taskItemsInput.value.length > 0) {
         insertTaskItemHTML(taskItemsInput.value);
@@ -48,6 +50,8 @@ function removeTaskItems() {
     }
 };
 
+// Form button events/functionality.
+
 function clearForm() {
     event.preventDefault();
     taskListForm.reset();
@@ -58,15 +62,27 @@ function clearForm() {
 function submitForm() {
     if (taskListTitleInput.value.length > 0 && 
         formTaskItems.children.length > 0) {
-        event.preventDefault();
-        var newToDo = new ToDoList(Date.now(), taskListTitleInput.value);
-        getTaskItems(newToDo);
-        displayToDoCard(newToDo);
-        newToDo.saveToStorage();
-        toDoCards.push(newToDo);
-        clearForm();
+            event.preventDefault();
+            var newToDo = new ToDoList(Date.now(), taskListTitleInput.value);
+            getTaskItems(newToDo);
+            displayToDoCard(newToDo);
+            newToDo.saveToStorage();
+            toDoCards.push(newToDo);
+            clearForm();
     }
 }
+
+function filterUrgentCards() {
+    event.preventDefault();
+    displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'))
+    nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
+}
+
+// Functions that run on form submission
+
+// On form submit, get task items from form and 
+// translate them into task objects for to-do list
 
 function getTaskItems(toDoList) {
     var taskItems = document.querySelectorAll('.task-item-row-form');
@@ -74,6 +90,9 @@ function getTaskItems(toDoList) {
         {var newTask = new Task(item.children[1].innerHTML);
         toDoList.tasks.push(newTask)});
 }
+
+// On form submit, display to-do list card. Display card on whichever column has the least 
+// number of cards on display.
 
 function displayToDoCard(toDoList) {
     if (cardColumnOne.children.length > cardColumnTwo.children.length) {
@@ -117,6 +136,9 @@ function displayToDoCard(toDoList) {
     }
 }
 
+// Helper functions for form submission flow to toggle display of active-checked buttons 
+// and urgent cards.
+
 function displayUrgentCard(toDoList) {
     if (toDoList.urgent === true) {
         var id = toDoList.id.toString();
@@ -147,6 +169,8 @@ function displayTaskItems(toDoList) {
     }
 }
 
+// Get saved cards from local storage. Runs on page load.
+
 function gettoDoCards() {
     for (var i = 0; i < localStorage.length; i++) {
         var toDoCardKey = localStorage.key([i]);
@@ -157,13 +181,17 @@ function gettoDoCards() {
         }
     }
     toDoCards.sort(function(a, b){return a.id-b.id});
-  };
+};
+
+// Display saved cards. Runs on page load.
 
 function loadToDoCards() {
 for (var i = 0; i < toDoCards.length; i++) {
     displayToDoCard(toDoCards[i]);
     }
 };
+
+// Check form validity, enable buttons when form is valid.
 
 function checkFormValidity() {
     if (taskListTitleInput.value.length > 0 &&
@@ -176,6 +204,8 @@ function checkFormValidity() {
     }
 };
 
+// Toggle between urgent and non-urgent state. Updates data model, then DOM.
+
 function toggleUrgent() {
     if (event.target.parentNode.classList.contains('urgent-btn')) {
         var displayCard = event.target.parentNode.parentNode.parentNode;
@@ -186,6 +216,9 @@ function toggleUrgent() {
     }
 }
 
+// Helper function to toggle between active and 
+// inactive images for urgent button and check boxes. Affects DOM only.
+
 function toggleActiveImg(card, type) {
     var displayImg = document.querySelector(`img[data-id="${card.id}"]`) || card;
     if (displayImg.src.includes('active')) {
@@ -194,6 +227,8 @@ function toggleActiveImg(card, type) {
         displayImg.src = `./assets/${type}-active.svg`;
     }
 }
+
+// Toggle between checked and non-checked state. Updates data model, then DOM.
 
 function toggleCheckedItems() {
     if (event.target.classList.contains('checkbox')) {
@@ -204,28 +239,24 @@ function toggleCheckedItems() {
     }
 }
 
+// Delete card from both display and DOM.
+
 function deleteCard() {
     if (event.target.parentNode.classList.contains('delete-btn') &&
     checkCompletedTasks(event) == true) {
         var toDoCard = event.target.parentNode.parentNode.parentNode;
         var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
         toDoData.deleteFromStorage();
-        console.log(toDoData)
         toDoCard.remove();
     } else {
-        console.log('nope')
+        console.log('possible error message')
     }
 }
+
+// Check that all tasks are completed before deleting card.
 
 function checkCompletedTasks(event) {
     var toDoCard = event.target.parentNode.parentNode.parentNode;
     var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
     return toDoData.tasks.every(task => task.checked == true);
-}
-
-function filterUrgentCards() {
-    event.preventDefault();
-    displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
-    var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'))
-    nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
 }
