@@ -9,7 +9,8 @@ class ToDoList {
         window.localStorage.setItem(`toDoList ${this.title} ${this.id}`, JSON.stringify(this));
     }
     deleteFromStorage() {
-
+        var localKey = Object.keys(localStorage).find(key => key.includes(`${this.id}`));
+        window.localStorage.removeItem(localKey);
     }
     updateToDo() {
         if (this.urgent === false) {

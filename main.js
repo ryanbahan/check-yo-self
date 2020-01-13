@@ -17,6 +17,7 @@ taskListForm.addEventListener('submit', submitForm);
 taskListForm.addEventListener('input', checkFormValidity);
 mainCardsDisplay.addEventListener('click', toggleUrgent);
 mainCardsDisplay.addEventListener('click', toggleCheckedItems);
+mainCardsDisplay.addEventListener('click', deleteCard);
 
 gettoDoCards();
 loadToDoCards();
@@ -199,4 +200,23 @@ function toggleCheckedItems() {
         savedToDo.updateTask(event);
         toggleActiveImg(event.target, 'checkbox');
     }
+}
+
+function deleteCard() {
+    if (event.target.parentNode.classList.contains('delete-btn') &&
+    checkCompletedTasks(event) == true) {
+        var toDoCard = event.target.parentNode.parentNode.parentNode;
+        var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
+        toDoData.deleteFromStorage();
+        console.log(toDoData)
+        toDoCard.remove();
+    } else {
+        console.log('nope')
+    }
+}
+
+function checkCompletedTasks(event) {
+    var toDoCard = event.target.parentNode.parentNode.parentNode;
+    var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
+    return toDoData.tasks.every(task => task.checked == true);
 }
