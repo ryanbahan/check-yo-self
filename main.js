@@ -9,6 +9,7 @@ var cardColumnTwo = document.querySelector('.card-column-two');
 var submitBtn = document.querySelector('.make-task-list');
 var mainCardsDisplay = document.querySelector('.cards-display-container');
 var filterByUrgencyBtn = document.querySelector('.filter-urgency');
+var searchField = document.querySelector('.search-field');
 var toDoCards = [];
 
 addTaskItemBtn.addEventListener('click', addTaskItem);
@@ -20,6 +21,7 @@ mainCardsDisplay.addEventListener('click', toggleUrgent);
 mainCardsDisplay.addEventListener('click', toggleCheckedItems);
 mainCardsDisplay.addEventListener('click', deleteCard);
 filterByUrgencyBtn.addEventListener('click', filterUrgentCards);
+searchField.addEventListener('input', searchCards);
 
 gettoDoCards();
 loadToDoCards();
@@ -259,4 +261,17 @@ function checkCompletedTasks(event) {
     var toDoCard = event.target.parentNode.parentNode.parentNode;
     var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
     return toDoData.tasks.every(task => task.checked == true);
+}
+
+// Search cards by string.
+
+function searchCards() {
+    var query = new RegExp(`^${searchField.value}`, 'gi');
+    var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    var matches = displayCards.filter(card => card.children[0].innerText.match(query));
+    var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
+    nonMatches.forEach(card => card.classList.add('hidden'));
+    matches.forEach(card => card.classList.remove('hidden'));
+    // console.log(nonMatches);
+    // displayCards.forEach(card => console.log(card.children[0].innerText))
 }
