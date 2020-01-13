@@ -8,7 +8,7 @@ var cardColumnOne = document.querySelector('.card-column-one');
 var cardColumnTwo = document.querySelector('.card-column-two');
 var submitBtn = document.querySelector('.make-task-list');
 var mainCardsDisplay = document.querySelector('.cards-display-container');
-var FilterByUrgencyBtn = document.querySelector('.filter-urgency');
+var filterByUrgencyBtn = document.querySelector('.filter-urgency');
 var toDoCards = [];
 
 addTaskItemBtn.addEventListener('click', addTaskItem);
@@ -19,7 +19,7 @@ taskListForm.addEventListener('input', checkFormValidity);
 mainCardsDisplay.addEventListener('click', toggleUrgent);
 mainCardsDisplay.addEventListener('click', toggleCheckedItems);
 mainCardsDisplay.addEventListener('click', deleteCard);
-FilterByUrgencyBtn.addEventListener('click', filterUrgentCards);
+filterByUrgencyBtn.addEventListener('click', filterUrgentCards);
 
 gettoDoCards();
 loadToDoCards();
