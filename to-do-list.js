@@ -19,7 +19,11 @@ class ToDoList {
         }
         this.saveToStorage();
     }
-    updateTask() {
+    updateTask(event) {
+        var task = this.tasks.find(task => 
+            task.title === event.target.parentNode.children[1].innerText);
         
+        task.checked = !task.checked;
+        this.saveToStorage();
     }
 }

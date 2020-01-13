@@ -15,7 +15,8 @@ formTaskItems.addEventListener('click', removeTaskItems);
 clearAllBtn.addEventListener('click', clearForm);
 taskListForm.addEventListener('submit', submitForm);
 taskListForm.addEventListener('input', checkFormValidity);
-mainCardsDisplay.addEventListener('click', toggleUrgent)
+mainCardsDisplay.addEventListener('click', toggleUrgent);
+mainCardsDisplay.addEventListener('click', toggleCheckedItems);
 
 gettoDoCards();
 loadToDoCards();
@@ -89,14 +90,7 @@ function displayToDoCard(toDoList) {
                 </div>
             </div>
         </section>`);
-        var taskItems = document.getElementById(`${toDoList.id}`);
-        toDoList.tasks.forEach(task => 
-            {taskItems.insertAdjacentHTML('beforeend', `
-                <div class="task-item-row">
-                <img src="./assets/checkbox.svg" alt="" class="checkbox">
-                <p>${task.title}</p>
-                </div>
-            `)});
+        displayTaskItems(toDoList);
         displayUrgentCard(toDoList);
     } else {
         cardColumnOne.insertAdjacentHTML('afterbegin', 
@@ -115,14 +109,7 @@ function displayToDoCard(toDoList) {
                 </div>
             </div>
         </section>`);
-        var taskItems = document.getElementById(`${toDoList.id}`);
-        toDoList.tasks.forEach(task => 
-            {taskItems.insertAdjacentHTML('beforeend', `
-                <div class="task-item-row">
-                <img src="./assets/checkbox.svg" alt="" class="checkbox">
-                <p>${task.title}</p>
-                </div>
-            `)});
+        displayTaskItems(toDoList);
         displayUrgentCard(toDoList);
     }
 }
@@ -133,6 +120,27 @@ function displayUrgentCard(toDoList) {
         var card = document.querySelector(`section[data-id="${id}"]`)
         card.classList.add('urgent');
         toggleActiveImg(toDoList, 'urgent');
+    }
+}
+
+function displayTaskItems(toDoList) {
+    var taskItems = document.getElementById(`${toDoList.id}`);
+    for (var i = 0; i < toDoList.tasks.length; i++) {
+        if (toDoList.tasks[i].checked === true) {
+            taskItems.insertAdjacentHTML('beforeend', `
+            <div class="task-item-row">
+            <img src="./assets/checkbox-active.svg" alt="" class="checkbox">
+            <p>${toDoList.tasks[i].title}</p>
+            </div>
+        `);
+        } else {
+            taskItems.insertAdjacentHTML('beforeend', `
+                <div class="task-item-row">
+                <img src="./assets/checkbox.svg" alt="" class="checkbox">
+                <p>${toDoList.tasks[i].title}</p>
+                </div>
+            `);
+        }
     }
 }
 
@@ -169,17 +177,26 @@ function toggleUrgent() {
     if (event.target.parentNode.classList.contains('urgent-btn')) {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         var savedToDo = toDoCards.find(card => card.id == displayCard.dataset.id);
-        toggleActiveImg(savedToDo, 'urgent');
         savedToDo.updateToDo();
+        toggleActiveImg(savedToDo, 'urgent');
         displayCard.classList.toggle('urgent');
     }
 }
 
 function toggleActiveImg(card, type) {
-    var displayImg = document.querySelector(`img[data-id="${card.id}"]`);
+    var displayImg = document.querySelector(`img[data-id="${card.id}"]`) || card;
     if (displayImg.src.includes('active')) {
         displayImg.src = `./assets/${type}.svg`;
     } else {
         displayImg.src = `./assets/${type}-active.svg`;
+    }
+}
+
+function toggleCheckedItems() {
+    if (event.target.classList.contains('checkbox')) {
+        var toDoID = event.target.parentNode.parentNode.id;
+        var savedToDo = toDoCards.find(card => card.id == toDoID);
+        savedToDo.updateTask(event);
+        toggleActiveImg(event.target, 'checkbox');
     }
 }
