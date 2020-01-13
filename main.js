@@ -59,6 +59,7 @@ function submitForm() {
         getTaskItems(newToDo);
         displayToDoCard(newToDo);
         newToDo.saveToStorage();
+        toDoCards.push(newToDo);
         clearForm();
     }
 }
@@ -169,8 +170,6 @@ function toggleUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         var savedToDo = toDoCards.find(card => card.id == displayCard.dataset.id);
         toggleActiveImg(savedToDo, 'urgent');
-        // var urgentImg = document.querySelector(`img[data-id="${savedToDo.id}"]`);
-        // urgentImg.src = "./assets/urgent-active.svg";
         savedToDo.updateToDo();
         displayCard.classList.toggle('urgent');
     }
