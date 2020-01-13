@@ -8,6 +8,7 @@ var cardColumnOne = document.querySelector('.card-column-one');
 var cardColumnTwo = document.querySelector('.card-column-two');
 var submitBtn = document.querySelector('.make-task-list');
 var mainCardsDisplay = document.querySelector('.cards-display-container');
+var FilterByUrgencyBtn = document.querySelector('.filter-urgency');
 var toDoCards = [];
 
 addTaskItemBtn.addEventListener('click', addTaskItem);
@@ -18,6 +19,7 @@ taskListForm.addEventListener('input', checkFormValidity);
 mainCardsDisplay.addEventListener('click', toggleUrgent);
 mainCardsDisplay.addEventListener('click', toggleCheckedItems);
 mainCardsDisplay.addEventListener('click', deleteCard);
+FilterByUrgencyBtn.addEventListener('click', filterUrgentCards);
 
 gettoDoCards();
 loadToDoCards();
@@ -219,4 +221,11 @@ function checkCompletedTasks(event) {
     var toDoCard = event.target.parentNode.parentNode.parentNode;
     var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
     return toDoData.tasks.every(task => task.checked == true);
+}
+
+function filterUrgentCards() {
+    event.preventDefault();
+    displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'))
+    nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
 }
