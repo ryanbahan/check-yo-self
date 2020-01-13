@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <nav>
+            <h1>CHECK<span class="title-color-alt">&nbsp;YO'&nbsp;</span>SELF</h1>
+            <div class="search-bar">
+                <div class="search-icon-container">
+                    <img src="./assets/search.svg" class="search-icon" alt="Search icon">
+                </div>
+                <input type="text" placeholder="Search" class="search-field">
+            </div>
+        </nav>
+        <main>
+            <form class="task-list-form">
+                <div class="input-field-container">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" name="task-title" class="task-title-field">
+                </div>
+                    <div class="display-task-items">
+                    </div>
+                <div class="input-field-container">
+                    <label for="task-item">Task Item</label>
+                    <input type="text" name="task-item" class="task-item-field">
+                    <span class="add-task-item">+</span>
+                </div>
+                <button type="submit" class="make-task-list" disabled>Make Task List</button>
+                <button class="clear-all" disabled>Clear All</button>
+                <hr class="form-hr">
+                <button class="filter-urgency">Filter by Urgency</button>
+            </form>
+            <section class="cards-display">
+                <div class="cards-display-container">
+                    <div class="no-cards-banner hidden">
+                        <h4>Looks like you haven't made any to-do's yet!</h4>
+                        <p>Use the form to the left to get started, and
+                            be sure to keep track of your ongoing priorities!
+                        </p>
+                    </div>
+                    <div class="card-column-one">
+                    </div>
+                    <div class="card-column-two">
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script src="to-do-list.js"></script>
+        <script src="task.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
