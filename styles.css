@@ -296,3 +296,9 @@ form button:enabled,
     max-height: 20%;
     overflow: scroll;
 }
+
+button:disabled {
+    background-color: #f3f6f7;
+    color: black;
+    opacity: 0.75;
+}
