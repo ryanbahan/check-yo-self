@@ -100,9 +100,11 @@ form > * {
 
 .cards-display-container {
     width: 100%;
+    min-width: 350px;
     display: flex;
     justify-content: space-around;
     height: max-content;
+    flex-wrap: wrap;
 }
 
 .input-field-container {
@@ -256,6 +258,7 @@ form button:enabled,
     flex-direction: column;
     align-items: center;
     width: 50%;
+    min-width: 300px;
     margin-bottom: 5%;
 
 }
