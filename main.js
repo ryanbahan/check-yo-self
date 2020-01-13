@@ -76,8 +76,10 @@ function submitForm() {
 
 function filterUrgentCards() {
     event.preventDefault();
-    displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
-    var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'))
+    resetSearchField();
+    var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'));
+    filterByUrgencyBtn.classList.toggle('urgent-active');
     nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
 }
 
@@ -267,11 +269,20 @@ function checkCompletedTasks(event) {
 
 function searchCards() {
     var query = new RegExp(`${searchField.value}`, 'gi');
-    var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    if (filterByUrgencyBtn.classList.contains('urgent-active')) {
+        var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list.urgent'));
+    } else {
+        var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
+    }
     var matches = displayCards.filter(card => card.children[0].innerText.match(query));
     var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
     nonMatches.forEach(card => card.classList.add('hidden'));
     matches.forEach(card => card.classList.remove('hidden'));
-    // console.log(nonMatches);
-    // displayCards.forEach(card => console.log(card.children[0].innerText))
+}
+
+// Reset search field and search query display.
+
+function resetSearchField() {
+    searchField.value = "";
+    searchCards();
 }
