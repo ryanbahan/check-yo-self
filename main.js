@@ -76,6 +76,7 @@ function submitForm() {
 
 function filterUrgentCards() {
     event.preventDefault();
+    resetSearchField();
     var displayCards = Array.prototype.slice.call(document.querySelectorAll('.task-list'));
     var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'));
     filterByUrgencyBtn.classList.toggle('urgent-active');
@@ -277,4 +278,11 @@ function searchCards() {
     var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
     nonMatches.forEach(card => card.classList.add('hidden'));
     matches.forEach(card => card.classList.remove('hidden'));
+}
+
+// Reset search field and search query display.
+
+function resetSearchField() {
+    searchField.value = "";
+    searchCards();
 }
