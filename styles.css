@@ -183,8 +183,11 @@ form > * {
     padding-top: 0.5%;
 }
 
-.task-list-form button {
+button {
     background-color: #1f1f3d;
+}
+
+.task-list-form button {
     color: white;
     border: none;
     font-size: 1.25em;
@@ -304,4 +307,8 @@ button:disabled {
     background-color: #f3f6f7;
     color: black;
     opacity: 0.75;
+}
+
+.urgent-active {
+    background-color: #ef4a23;
 }
