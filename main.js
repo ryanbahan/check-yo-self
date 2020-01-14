@@ -18,6 +18,7 @@ clearAllBtn.addEventListener('click', clearForm);
 taskListForm.addEventListener('submit', submitForm);
 taskListForm.addEventListener('input', checkFormValidity);
 mainCardsDisplay.addEventListener('click', toggleUrgent);
+mainCardsDisplay.addEventListener('click', hideNonUrgent);
 mainCardsDisplay.addEventListener('click', toggleCheckedItems);
 mainCardsDisplay.addEventListener('click', deleteCard);
 filterByUrgencyBtn.addEventListener('click', filterUrgentCards);
@@ -285,4 +286,14 @@ function searchCards() {
 function resetSearchField() {
     searchField.value = "";
     searchCards();
+}
+
+// Hide tasks deselected as urgent if the urgency filter is active
+
+function hideNonUrgent() {
+    if (event.target.parentNode.classList.contains('urgent-btn') &&
+    filterByUrgencyBtn.classList.contains('urgent-active')) {
+        var displayCard = event.target.parentNode.parentNode.parentNode;
+        displayCard.classList.add('hidden');
+    }
 }
