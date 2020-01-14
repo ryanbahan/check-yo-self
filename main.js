@@ -26,6 +26,7 @@ searchField.addEventListener('input', searchCards);
 
 gettoDoCards();
 loadToDoCards();
+toggleWelcomeBanner();
 
 // Add and remove task items from the left-side form, pre-submission.
 
@@ -63,14 +64,14 @@ function clearForm() {
 };
 
 function submitForm() {
-    if (taskListTitleInput.value.length > 0 && 
-        formTaskItems.children.length > 0) {
+    if (taskListTitleInput.value.length > 0 && formTaskItems.children.length > 0) {
             event.preventDefault();
             var newToDo = new ToDoList(Date.now(), taskListTitleInput.value);
             getTaskItems(newToDo);
             displayToDoCard(newToDo);
             newToDo.saveToStorage();
             toDoCards.push(newToDo);
+            toggleWelcomeBanner();
             clearForm();
     }
 }
@@ -82,6 +83,25 @@ function filterUrgentCards() {
     var nonUrgentCards = displayCards.filter(card => !card.classList.contains('urgent'));
     filterByUrgencyBtn.classList.toggle('urgent-active');
     nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
+    toggleUrgentCardsBanner(displayCards);
+}
+
+function toggleUrgentCardsBanner(displayCards) {
+    var urgentCards = displayCards.filter(card => card.classList.contains('urgent'));
+    var banner = document.querySelector('.no-urgent-cards-banner');
+    if (urgentCards.length === 0 &&
+        displayCards.length !== 0 &&
+        filterByUrgencyBtn.classList.contains('urgent-active')) {
+        mainCardsDisplay.insertAdjacentHTML('afterbegin', `
+        <div class="no-urgent-cards-banner">
+            <h4>You haven't made any to-do's urgent!</h4>
+            <p>Mark a task urgent to view it here.</p>
+        </div>
+    `)
+    } else if (!filterByUrgencyBtn.classList.contains('urgent-active') &&
+        banner !== null) {
+            banner.remove();
+    }
 }
 
 // Functions that run on form submission
@@ -139,6 +159,7 @@ function displayToDoCard(toDoList) {
         displayTaskItems(toDoList);
         displayUrgentCard(toDoList);
     }
+    checkUrgencyFilter();
 }
 
 // Helper functions for form submission flow to toggle display of active-checked buttons 
@@ -171,6 +192,13 @@ function displayTaskItems(toDoList) {
                 </div>
             `);
         }
+    }
+}
+
+function checkUrgencyFilter() {
+    if (filterByUrgencyBtn.classList.contains('urgent-active')) {
+        var nonUrgentCards = document.querySelectorAll('.task-list:not(.urgent):not(.hidden)');
+        nonUrgentCards.forEach(card => card.classList.add('hidden'));
     }
 }
 
@@ -296,4 +324,21 @@ function hideNonUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         displayCard.classList.add('hidden');
     }
+}
+
+function toggleWelcomeBanner() {
+    if (cardColumnOne.children.length === 0 &&
+        cardColumnTwo.children.length === 0) {
+            mainCardsDisplay.insertAdjacentHTML('afterbegin', `
+                    <div class="no-cards-banner">
+                        <h4>Looks like you haven't made any to-do's yet!</h4>
+                        <p>Use the form to the left to get started, and
+                            be sure to keep track of your ongoing priorities!
+                        </p>
+                    </div>
+            `)
+        } else if (document.querySelector('.no-cards-banner') !== null) {
+            var welcomeBanner = document.querySelector('.no-cards-banner');
+            welcomeBanner.remove();
+        }
 }

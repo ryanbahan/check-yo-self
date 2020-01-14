@@ -276,22 +276,20 @@ form button:enabled,
     border-color: #FFC621; 
 }
 
-.no-cards-banner {
+.no-cards-banner,
+.no-urgent-cards-banner {
     position: absolute;
     bottom: 45%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border: solid 1px black;
     border-radius: 2px;
     width: 40%;
     min-width: 200px;
-    min-height: max-content;
-}
-
-.no-cards-banner > * {
-    margin: 5%;
+    height: 150px;
+    padding: 0 20px;
 }
 
 .hidden {
