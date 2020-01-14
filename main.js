@@ -26,6 +26,7 @@ searchField.addEventListener('input', searchCards);
 
 gettoDoCards();
 loadToDoCards();
+toggleWelcomeBanner();
 
 // Add and remove task items from the left-side form, pre-submission.
 
@@ -71,6 +72,7 @@ function submitForm() {
             displayToDoCard(newToDo);
             newToDo.saveToStorage();
             toDoCards.push(newToDo);
+            toggleWelcomeBanner();
             clearForm();
     }
 }
@@ -296,4 +298,21 @@ function hideNonUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         displayCard.classList.add('hidden');
     }
+}
+
+function toggleWelcomeBanner() {
+    if (cardColumnOne.children.length === 0 &&
+        cardColumnTwo.children.length === 0) {
+            mainCardsDisplay.insertAdjacentHTML('afterbegin', `
+                    <div class="no-cards-banner">
+                        <h4>Looks like you haven't made any to-do's yet!</h4>
+                        <p>Use the form to the left to get started, and
+                            be sure to keep track of your ongoing priorities!
+                        </p>
+                    </div>
+            `)
+        } else {
+            var welcomeBanner = document.querySelector('.no-cards-banner');
+            welcomeBanner.remove();
+        }
 }
