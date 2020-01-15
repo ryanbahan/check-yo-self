@@ -5,13 +5,16 @@ class ToDoList {
         this.urgent = urgent || false;
         this.tasks = tasks || [];
     }
+    
     saveToStorage() {
         window.localStorage.setItem(`toDoList ${this.title} ${this.id}`, JSON.stringify(this));
     }
+
     deleteFromStorage() {
         var localKey = Object.keys(localStorage).find(key => key.includes(`${this.id}`));
         window.localStorage.removeItem(localKey);
     }
+    
     updateToDo() {
         if (this.urgent === false) {
             this.urgent = true;
@@ -20,6 +23,7 @@ class ToDoList {
         }
         this.saveToStorage();
     }
+
     updateTask(event) {
         var task = this.tasks.find(task => 
             task.title === event.target.parentNode.children[1].innerText);

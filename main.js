@@ -74,7 +74,7 @@ function submitForm() {
             toggleWelcomeBanner();
             clearForm();
     }
-}
+};
 
 function filterUrgentCards() {
     event.preventDefault();
@@ -84,7 +84,7 @@ function filterUrgentCards() {
     filterByUrgencyBtn.classList.toggle('urgent-active');
     nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
     toggleUrgentCardsBanner(displayCards);
-}
+};
 
 function toggleUrgentCardsBanner(displayCards) {
     var urgentCards = displayCards.filter(card => card.classList.contains('urgent'));
@@ -102,7 +102,7 @@ function toggleUrgentCardsBanner(displayCards) {
         banner !== null) {
             banner.remove();
     }
-}
+};
 
 // Functions that run on form submission
 
@@ -114,7 +114,7 @@ function getTaskItems(toDoList) {
     taskItems.forEach(item => 
         {var newTask = new Task(item.children[1].innerHTML);
         toDoList.tasks.push(newTask)});
-}
+};
 
 // On form submit, display to-do list card. Display card on whichever column has the least 
 // number of cards on display.
@@ -160,7 +160,7 @@ function displayToDoCard(toDoList) {
         displayUrgentCard(toDoList);
     }
     checkUrgencyFilter();
-}
+};
 
 // Helper functions for form submission flow to toggle display of active-checked buttons 
 // and urgent cards.
@@ -172,7 +172,7 @@ function displayUrgentCard(toDoList) {
         card.classList.add('urgent');
         toggleActiveImg(toDoList, 'urgent');
     }
-}
+};
 
 function displayTaskItems(toDoList) {
     var taskItems = document.getElementById(`${toDoList.id}`);
@@ -193,14 +193,14 @@ function displayTaskItems(toDoList) {
             `);
         }
     }
-}
+};
 
 function checkUrgencyFilter() {
     if (filterByUrgencyBtn.classList.contains('urgent-active')) {
         var nonUrgentCards = document.querySelectorAll('.task-list:not(.urgent):not(.hidden)');
         nonUrgentCards.forEach(card => card.classList.add('hidden'));
     }
-}
+};
 
 // Get saved cards from local storage. Runs on page load.
 
@@ -247,7 +247,7 @@ function toggleUrgent() {
         toggleActiveImg(savedToDo, 'urgent');
         displayCard.classList.toggle('urgent');
     }
-}
+};
 
 // Helper function to toggle between active and 
 // inactive images for urgent button and check boxes. Affects DOM only.
@@ -259,7 +259,7 @@ function toggleActiveImg(card, type) {
     } else {
         displayImg.src = `./assets/${type}-active.svg`;
     }
-}
+};
 
 // Toggle between checked and non-checked state. Updates data model, then DOM.
 
@@ -270,7 +270,7 @@ function toggleCheckedItems() {
         savedToDo.updateTask(event);
         toggleActiveImg(event.target, 'checkbox');
     }
-}
+};
 
 // Delete card from both display and DOM.
 
@@ -284,7 +284,7 @@ function deleteCard() {
     } else {
         console.log('possible error message')
     }
-}
+};
 
 // Check that all tasks are completed before deleting card.
 
@@ -292,7 +292,7 @@ function checkCompletedTasks(event) {
     var toDoCard = event.target.parentNode.parentNode.parentNode;
     var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
     return toDoData.tasks.every(task => task.checked == true);
-}
+};
 
 // Search cards by string.
 
@@ -307,14 +307,14 @@ function searchCards() {
     var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
     nonMatches.forEach(card => card.classList.add('hidden'));
     matches.forEach(card => card.classList.remove('hidden'));
-}
+};
 
 // Reset search field and search query display.
 
 function resetSearchField() {
     searchField.value = "";
     searchCards();
-}
+};
 
 // Hide tasks deselected as urgent if the urgency filter is active
 
@@ -324,7 +324,7 @@ function hideNonUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         displayCard.classList.add('hidden');
     }
-}
+};
 
 function toggleWelcomeBanner() {
     if (cardColumnOne.children.length === 0 &&
@@ -341,4 +341,4 @@ function toggleWelcomeBanner() {
             var welcomeBanner = document.querySelector('.no-cards-banner');
             welcomeBanner.remove();
         }
-}
+};
