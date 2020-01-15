@@ -4,7 +4,7 @@ Check Yo' Self is a single-page task planning application that allows users to c
 
 ## Getting Started
 
-This is a single-page application that runs directly from the index.html file. Either clone down the repo and run the index file, or simply use the application via [GitHub Pages here](https://karlfunhouse.github.io/buildabear/).
+This is a single-page application that runs directly from the index.html file. Either clone down the repo and run the index file.
 
 ## Project Goals
 
