@@ -1,5 +1,7 @@
 # CHECK YO'SELF
 
+<img width="1381" alt="Screen Shot 2020-01-14 at 7 59 22 PM" src="https://user-images.githubusercontent.com/54119863/72401128-6a3efb80-3708-11ea-914a-4fff063d2251.png">
+
 Check Yo' Self is a single-page task planning application that allows users to create to-do lists, save them, mark them urgent, and delete completed to-do's.
 
 ## Getting Started
