@@ -74,7 +74,7 @@ function submitForm() {
             toggleWelcomeBanner();
             clearForm();
     }
-}
+};
 
 function filterUrgentCards() {
     event.preventDefault();
@@ -84,7 +84,7 @@ function filterUrgentCards() {
     filterByUrgencyBtn.classList.toggle('urgent-active');
     nonUrgentCards.forEach(card => card.classList.toggle('hidden'));
     toggleUrgentCardsBanner(displayCards);
-}
+};
 
 function toggleUrgentCardsBanner(displayCards) {
     var urgentCards = displayCards.filter(card => card.classList.contains('urgent'));
@@ -102,7 +102,7 @@ function toggleUrgentCardsBanner(displayCards) {
         banner !== null) {
             banner.remove();
     }
-}
+};
 
 // Functions that run on form submission
 
@@ -114,7 +114,7 @@ function getTaskItems(toDoList) {
     taskItems.forEach(item => 
         {var newTask = new Task(item.children[1].innerHTML);
         toDoList.tasks.push(newTask)});
-}
+};
 
 // On form submit, display to-do list card. Display card on whichever column has the least 
 // number of cards on display.
@@ -160,7 +160,7 @@ function displayToDoCard(toDoList) {
         displayUrgentCard(toDoList);
     }
     checkUrgencyFilter();
-}
+};
 
 // Helper functions for form submission flow to toggle display of active-checked buttons 
 // and urgent cards.
@@ -172,7 +172,7 @@ function displayUrgentCard(toDoList) {
         card.classList.add('urgent');
         toggleActiveImg(toDoList, 'urgent');
     }
-}
+};
 
 function displayTaskItems(toDoList) {
     var taskItems = document.getElementById(`${toDoList.id}`);
@@ -193,14 +193,14 @@ function displayTaskItems(toDoList) {
             `);
         }
     }
-}
+};
 
 function checkUrgencyFilter() {
     if (filterByUrgencyBtn.classList.contains('urgent-active')) {
         var nonUrgentCards = document.querySelectorAll('.task-list:not(.urgent):not(.hidden)');
         nonUrgentCards.forEach(card => card.classList.add('hidden'));
     }
-}
+};
 
 // Get saved cards from local storage. Runs on page load.
 
@@ -281,7 +281,9 @@ function deleteCard() {
         var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
         toDoData.deleteFromStorage();
         toDoCard.remove();
-    } 
+    } else {
+        console.log('possible error message')
+    }
 };
 
 // Check that all tasks are completed before deleting card.
@@ -322,10 +324,8 @@ function hideNonUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         displayCard.classList.add('hidden');
     }
-<<<<<<< HEAD
 };
-=======
-}
+
 
 function toggleWelcomeBanner() {
     if (cardColumnOne.children.length === 0 &&
@@ -342,5 +342,5 @@ function toggleWelcomeBanner() {
             var welcomeBanner = document.querySelector('.no-cards-banner');
             welcomeBanner.remove();
         }
-}
->>>>>>> f5fa37eb41c6fcb666c66d3bdfd761112869f264
+};
+

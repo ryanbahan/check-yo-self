@@ -23,7 +23,7 @@ class ToDoList {
         }
         this.saveToStorage();
     }
-    
+
     updateTask(event) {
         var task = this.tasks.find(task => 
             task.title === event.target.parentNode.children[1].innerText);
