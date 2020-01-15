@@ -219,7 +219,7 @@ function toggleUrgent() {
         toggleActiveImg(savedToDo, 'urgent');
         displayCard.classList.toggle('urgent');
     }
-}
+};
 
 // Helper function to toggle between active and 
 // inactive images for urgent button and check boxes. Affects DOM only.
@@ -231,7 +231,7 @@ function toggleActiveImg(card, type) {
     } else {
         displayImg.src = `./assets/${type}-active.svg`;
     }
-}
+};
 
 // Toggle between checked and non-checked state. Updates data model, then DOM.
 
@@ -242,7 +242,7 @@ function toggleCheckedItems() {
         savedToDo.updateTask(event);
         toggleActiveImg(event.target, 'checkbox');
     }
-}
+};
 
 // Delete card from both display and DOM.
 
@@ -253,10 +253,8 @@ function deleteCard() {
         var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
         toDoData.deleteFromStorage();
         toDoCard.remove();
-    } else {
-        console.log('possible error message')
-    }
-}
+    } 
+};
 
 // Check that all tasks are completed before deleting card.
 
@@ -264,7 +262,7 @@ function checkCompletedTasks(event) {
     var toDoCard = event.target.parentNode.parentNode.parentNode;
     var toDoData = toDoCards.find(card => card.id == toDoCard.dataset.id);
     return toDoData.tasks.every(task => task.checked == true);
-}
+};
 
 // Search cards by string.
 
@@ -279,14 +277,14 @@ function searchCards() {
     var nonMatches = displayCards.filter(card => !card.children[0].innerText.match(query));
     nonMatches.forEach(card => card.classList.add('hidden'));
     matches.forEach(card => card.classList.remove('hidden'));
-}
+};
 
 // Reset search field and search query display.
 
 function resetSearchField() {
     searchField.value = "";
     searchCards();
-}
+};
 
 // Hide tasks deselected as urgent if the urgency filter is active
 
@@ -296,4 +294,4 @@ function hideNonUrgent() {
         var displayCard = event.target.parentNode.parentNode.parentNode;
         displayCard.classList.add('hidden');
     }
-}
+};
