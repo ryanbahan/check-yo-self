@@ -326,6 +326,7 @@ function hideNonUrgent() {
     }
 };
 
+
 function toggleWelcomeBanner() {
     if (cardColumnOne.children.length === 0 &&
         cardColumnTwo.children.length === 0) {
@@ -342,3 +343,4 @@ function toggleWelcomeBanner() {
             welcomeBanner.remove();
         }
 };
+
